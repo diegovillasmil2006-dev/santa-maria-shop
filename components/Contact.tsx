@@ -1,20 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 const WA_URL = "https://wa.me/50768160968";
-const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function Contact() {
   return (
     <section id="contact" className="py-16 sm:py-20 bg-cream">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.7, ease: EASE }}
-        >
+        <div className="fade-in-image">
           {/* Eyebrow */}
           <div className="flex items-center gap-4 justify-center mb-8">
             <span className="h-[1px] w-12 bg-gold/50" />
@@ -45,7 +37,7 @@ export default function Contact() {
             </svg>
             Chatear por WhatsApp
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

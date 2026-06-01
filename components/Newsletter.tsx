@@ -19,12 +19,7 @@ export default function Newsletter() {
       <div className="absolute inset-0 bg-gradient-to-b from-cream via-transparent to-cream pointer-events-none" />
 
       <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
+        <div className="fade-in-image">
           {/* Decorative */}
           <div className="flex items-center gap-4 justify-center mb-8">
             <span className="h-[1px] w-16 bg-gold/50" />
@@ -91,7 +86,7 @@ export default function Newsletter() {
           <p className="font-inter text-[11px] text-muted/50 mt-5 tracking-wide">
             Sin spam. Solo lo mejor de Santa Maria.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

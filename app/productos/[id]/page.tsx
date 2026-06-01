@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { products, getProductBySlug } from "@/data/products";
 import Navbar from "@/components/Navbar";
-import Cart from "@/components/Cart";
 import ProductDetail from "@/components/ProductDetail";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -25,7 +24,7 @@ export async function generateMetadata({
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const product = getProductBySlug(params.id);
-  if (!product) notFound();
+  if (!product) return notFound();
 
   return (
     <>
