@@ -68,7 +68,6 @@ function formatPrice(price: number) {
 }
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
-const REVEAL_EASE = [0.76, 0, 0.24, 1] as const;
 
 const containerVariants = {
   hidden: {},
@@ -76,7 +75,7 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 0 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
@@ -87,9 +86,9 @@ export default function FeaturedProducts() {
         {/* Header */}
         <motion.div
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-16 gap-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <div>
@@ -114,9 +113,9 @@ export default function FeaturedProducts() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0 }}
         >
-          {products.map((product, i) => (
+          {products.map((product) => (
             <motion.article
               key={product.id}
               variants={cardVariants}
@@ -134,17 +133,17 @@ export default function FeaturedProducts() {
                 />
                 {/* Tag */}
                 {product.tag && (
-                  <span className="absolute top-3 left-3 font-inter text-[10px] tracking-widest uppercase bg-navy text-cream px-2.5 py-1">
+                  <span className="absolute top-3 left-3 z-10 font-inter text-[10px] tracking-widest uppercase bg-navy text-cream px-2.5 py-1">
                     {product.tag}
                   </span>
                 )}
-                {/* Quick action overlay */}
-                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/25 transition-all duration-500 flex flex-col items-center justify-end pb-5 gap-2 opacity-0 group-hover:opacity-100">
+                {/* Quick action overlay — z-20 ensures it's always above image */}
+                <div className="absolute inset-0 z-20 bg-navy/0 group-hover:bg-navy/25 transition-all duration-500 flex flex-col items-center justify-end pb-5 gap-2 opacity-0 group-hover:opacity-100">
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.2, ease: EASE }}
-                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-gold text-navy py-2.5 hover:bg-gold-light transition-all duration-300 translate-y-4 group-hover:translate-y-0"
+                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-gold text-navy py-2.5 hover:bg-gold-light transition-all duration-300"
                   >
                     Agregar al carrito
                   </motion.button>
@@ -152,21 +151,11 @@ export default function FeaturedProducts() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.2, ease: EASE }}
-                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-cream/90 text-navy py-2 hover:bg-cream transition-all duration-300 translate-y-4 group-hover:translate-y-0"
+                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-cream/90 text-navy py-2 hover:bg-cream transition-all duration-300"
                   >
                     Ver prenda
                   </motion.button>
                 </div>
-
-                {/* Reveal mask */}
-                <motion.div
-                  className="absolute inset-0 bg-cream pointer-events-none"
-                  style={{ originY: 0 }}
-                  initial={{ scaleY: 1 }}
-                  whileInView={{ scaleY: 0 }}
-                  viewport={{ once: true, amount: 0.1 }}
-                  transition={{ duration: 0.9, delay: (i % 3) * 0.1, ease: REVEAL_EASE }}
-                />
               </div>
 
               {/* Info */}

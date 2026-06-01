@@ -31,7 +31,6 @@ const categories = [
 ];
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
-const REVEAL_EASE = [0.76, 0, 0.24, 1] as const;
 
 const containerVariants = {
   hidden: {},
@@ -39,7 +38,7 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 0 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
@@ -50,9 +49,9 @@ export default function Categories() {
         {/* Section header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-3">
@@ -69,11 +68,11 @@ export default function Categories() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0 }}
         >
-          {categories.map((cat, i) => (
+          {categories.map((cat) => (
             <motion.div key={cat.id} variants={cardVariants}>
-              <Link href={`#products`} className="block group">
+              <Link href="#products" className="block group">
                 <div className="relative overflow-hidden aspect-[3/4] sm:aspect-[2/3]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -101,16 +100,6 @@ export default function Categories() {
                       </svg>
                     </span>
                   </div>
-
-                  {/* Reveal mask — curtain that lifts to expose the image */}
-                  <motion.div
-                    className="absolute inset-0 bg-cream-light pointer-events-none"
-                    style={{ originY: 0 }}
-                    initial={{ scaleY: 1 }}
-                    whileInView={{ scaleY: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.9, delay: i * 0.15, ease: REVEAL_EASE }}
-                  />
                 </div>
               </Link>
             </motion.div>

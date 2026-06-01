@@ -38,7 +38,6 @@ const lookbookImages = [
 ];
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
-const REVEAL_EASE = [0.76, 0, 0.24, 1] as const;
 
 const containerVariants = {
   hidden: {},
@@ -46,7 +45,7 @@ const containerVariants = {
 };
 
 const imgVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 0 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
@@ -57,10 +56,10 @@ export default function Lookbook() {
         {/* Header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, amount: 0 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-3">
             Inspiración
@@ -79,9 +78,9 @@ export default function Lookbook() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0 }}
         >
-          {lookbookImages.map((img, i) => (
+          {lookbookImages.map((img) => (
             <motion.div
               key={img.id}
               variants={imgVariants}
@@ -101,16 +100,6 @@ export default function Lookbook() {
                   {img.caption}
                 </p>
               </div>
-
-              {/* Reveal mask */}
-              <motion.div
-                className="absolute inset-0 bg-navy pointer-events-none"
-                style={{ originY: 0 }}
-                initial={{ scaleY: 1 }}
-                whileInView={{ scaleY: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.9, delay: i * 0.12, ease: REVEAL_EASE }}
-              />
             </motion.div>
           ))}
         </motion.div>
