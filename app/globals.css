@@ -21,3 +21,12 @@
     text-wrap: balance;
   }
 }
+
+.fade-in-image {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

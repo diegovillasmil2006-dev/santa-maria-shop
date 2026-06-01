@@ -39,21 +39,12 @@ const lookbookImages = [
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
-
-const imgVariants = {
-  hidden: { opacity: 0, y: 0 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
-};
-
 export default function Lookbook() {
   return (
     <section id="lookbook" className="py-16 sm:py-20 bg-navy">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+
+        {/* Header — animación de texto se mantiene */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 0 }}
@@ -72,19 +63,13 @@ export default function Lookbook() {
           </p>
         </motion.div>
 
-        {/* Mosaic grid */}
-        <motion.div
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 auto-rows-[220px] sm:auto-rows-[280px] lg:auto-rows-[320px]"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0 }}
-        >
+        {/* Mosaic grid — CSS puro, sin Framer Motion en imágenes */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 auto-rows-[220px] sm:auto-rows-[280px] lg:auto-rows-[320px]">
           {lookbookImages.map((img) => (
-            <motion.div
+            /* Contenedor de imagen con fade-in CSS */
+            <div
               key={img.id}
-              variants={imgVariants}
-              className={`relative overflow-hidden group cursor-pointer ${img.span}`}
+              className={`relative overflow-hidden group cursor-pointer fade-in-image ${img.span}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -94,15 +79,15 @@ export default function Lookbook() {
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                 className="transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Hover overlay with caption */}
               <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/50 transition-all duration-500 flex items-end p-5 sm:p-6">
                 <p className="font-inter text-xs sm:text-sm tracking-widest uppercase text-cream opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
                   {img.caption}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );

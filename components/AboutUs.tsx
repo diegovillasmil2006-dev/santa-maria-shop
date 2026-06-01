@@ -8,14 +8,8 @@ export default function AboutUs() {
     <section id="about" className="py-16 sm:py-20 bg-cream-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image — en móvil va arriba */}
-          <motion.div
-            className="relative aspect-[4/5] lg:aspect-auto lg:h-[620px] order-1 lg:order-none"
-            initial={{ opacity: 0, x: 0 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0 }}
-            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
+          {/* Image — fade-in CSS, sin Framer Motion */}
+          <div className="relative aspect-[4/5] lg:aspect-auto lg:h-[620px] order-1 lg:order-none fade-in-image">
             <FallbackImage
               src="/imagenes/lifestyle.jpg"
               fallback="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80"
@@ -26,7 +20,7 @@ export default function AboutUs() {
             />
             {/* Accent border */}
             <div className="absolute -bottom-4 -right-4 w-2/3 h-2/3 border border-gold/30 pointer-events-none hidden lg:block" />
-          </motion.div>
+          </div>
 
           {/* Text */}
           <motion.div

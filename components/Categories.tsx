@@ -32,21 +32,12 @@ const categories = [
 
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 0 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
-};
-
 export default function Categories() {
   return (
     <section id="categories" className="py-16 sm:py-20 bg-cream-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+
+        {/* Section header — animación de texto se mantiene */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 0 }}
@@ -62,18 +53,13 @@ export default function Categories() {
           </h2>
         </motion.div>
 
-        {/* Cards grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0 }}
-        >
+        {/* Cards grid — CSS puro, sin Framer Motion */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
           {categories.map((cat) => (
-            <motion.div key={cat.id} variants={cardVariants}>
+            <div key={cat.id}>
               <Link href="#products" className="block group">
-                <div className="relative overflow-hidden aspect-[3/4] sm:aspect-[2/3]">
+                {/* Contenedor de imagen con fade-in CSS */}
+                <div className="relative overflow-hidden aspect-[3/4] sm:aspect-[2/3] fade-in-image">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={cat.image}
@@ -82,10 +68,7 @@ export default function Categories() {
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                     className="transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-
-                  {/* Text */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                     <h3 className="font-playfair text-3xl sm:text-4xl font-bold text-cream mb-1">
                       {cat.name}
@@ -102,9 +85,10 @@ export default function Categories() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );
