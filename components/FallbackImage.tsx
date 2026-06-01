@@ -8,12 +8,13 @@ interface FallbackImageProps extends Omit<ImageProps, "src" | "onError"> {
   fallback: string;
 }
 
-export default function FallbackImage({ src, fallback, quality = 100, ...props }: FallbackImageProps) {
+export default function FallbackImage({ src, fallback, quality = 100, alt, ...props }: FallbackImageProps) {
   const [imgSrc, setImgSrc] = useState(src);
   return (
     <Image
       {...props}
       src={imgSrc}
+      alt={alt}
       quality={quality}
       onError={() => setImgSrc(fallback)}
     />
