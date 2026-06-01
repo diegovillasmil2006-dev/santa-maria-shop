@@ -16,13 +16,13 @@ export default function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="py-20 sm:py-28 bg-cream">
+    <section id="newsletter" className="py-16 sm:py-20 bg-cream">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {/* Decorative line */}
           <div className="flex items-center gap-4 justify-center mb-8">

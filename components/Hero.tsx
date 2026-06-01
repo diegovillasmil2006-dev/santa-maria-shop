@@ -66,7 +66,7 @@ export default function Hero() {
       >
         <motion.p
           variants={fadeUp}
-          className="font-inter text-xs sm:text-sm tracking-[0.4em] uppercase text-gold mb-4 sm:mb-6"
+          className="font-inter text-[9px] tracking-[0.65em] uppercase text-gold/80 mb-5 sm:mb-7"
         >
           Colección 2025
         </motion.p>

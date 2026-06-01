@@ -5,16 +5,16 @@ import FallbackImage from "@/components/FallbackImage";
 
 export default function AboutUs() {
   return (
-    <section id="about" className="py-20 sm:py-28 bg-cream-light overflow-hidden">
+    <section id="about" className="py-16 sm:py-20 bg-cream-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image — en móvil va arriba */}
           <motion.div
             className="relative aspect-[4/5] lg:aspect-auto lg:h-[620px] order-1 lg:order-none"
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <FallbackImage
               src="/imagenes/lifestyle.jpg"
@@ -31,10 +31,10 @@ export default function AboutUs() {
           {/* Text */}
           <motion.div
             className="flex flex-col justify-center"
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.15 }}
           >
             <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-4">
               Nuestra historia

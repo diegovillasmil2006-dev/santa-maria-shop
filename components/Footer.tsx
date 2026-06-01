@@ -61,10 +61,10 @@ export default function Footer() {
         {/* Top section */}
         <motion.div
           className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10 py-16 sm:py-20 border-b border-cream/10"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {/* Brand */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">

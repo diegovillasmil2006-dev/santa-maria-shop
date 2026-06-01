@@ -76,21 +76,21 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
 export default function FeaturedProducts() {
   return (
-    <section id="products" className="py-20 sm:py-28 bg-cream">
+    <section id="products" className="py-16 sm:py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 sm:mb-16 gap-4"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           <div>
             <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-3">
@@ -114,7 +114,7 @@ export default function FeaturedProducts() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {products.map((product, i) => (
             <motion.article
@@ -139,12 +139,20 @@ export default function FeaturedProducts() {
                   </span>
                 )}
                 {/* Quick action overlay */}
-                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/20 transition-all duration-500 flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-navy/0 group-hover:bg-navy/25 transition-all duration-500 flex flex-col items-center justify-end pb-5 gap-2 opacity-0 group-hover:opacity-100">
                   <motion.button
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.2, ease: EASE }}
-                    className="font-inter text-xs tracking-widest uppercase bg-cream text-navy px-6 py-2.5 hover:bg-gold hover:text-navy transition-all duration-500 translate-y-4 group-hover:translate-y-0"
+                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-gold text-navy py-2.5 hover:bg-gold-light transition-all duration-300 translate-y-4 group-hover:translate-y-0"
+                  >
+                    Agregar al carrito
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.2, ease: EASE }}
+                    className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-cream/90 text-navy py-2 hover:bg-cream transition-all duration-300 translate-y-4 group-hover:translate-y-0"
                   >
                     Ver prenda
                   </motion.button>
@@ -156,7 +164,7 @@ export default function FeaturedProducts() {
                   style={{ originY: 0 }}
                   initial={{ scaleY: 1 }}
                   whileInView={{ scaleY: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.9, delay: (i % 3) * 0.1, ease: REVEAL_EASE }}
                 />
               </div>

@@ -52,14 +52,14 @@ const imgVariants = {
 
 export default function Lookbook() {
   return (
-    <section id="lookbook" className="py-20 sm:py-28 bg-navy">
+    <section id="lookbook" className="py-16 sm:py-20 bg-navy">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.7 }}
         >
           <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-3">
@@ -79,7 +79,7 @@ export default function Lookbook() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {lookbookImages.map((img, i) => (
             <motion.div
@@ -108,7 +108,7 @@ export default function Lookbook() {
                 style={{ originY: 0 }}
                 initial={{ scaleY: 1 }}
                 whileInView={{ scaleY: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.9, delay: i * 0.12, ease: REVEAL_EASE }}
               />
             </motion.div>

@@ -39,21 +39,21 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
 };
 
 export default function Categories() {
   return (
-    <section id="categories" className="py-20 sm:py-28 bg-cream-light">
+    <section id="categories" className="py-16 sm:py-20 bg-cream-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           <p className="font-inter text-xs tracking-[0.4em] uppercase text-gold mb-3">
             Explora
@@ -69,7 +69,7 @@ export default function Categories() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           {categories.map((cat, i) => (
             <motion.div key={cat.id} variants={cardVariants}>
@@ -108,7 +108,7 @@ export default function Categories() {
                     style={{ originY: 0 }}
                     initial={{ scaleY: 1 }}
                     whileInView={{ scaleY: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
+                    viewport={{ once: true, amount: 0.1 }}
                     transition={{ duration: 0.9, delay: i * 0.15, ease: REVEAL_EASE }}
                   />
                 </div>
