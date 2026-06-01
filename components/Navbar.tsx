@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { label: "Colección", href: "#categories" },
@@ -14,6 +15,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { count, openCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -24,9 +26,7 @@ export default function Navbar() {
   return (
     <motion.header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-navy/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+        scrolled ? "bg-navy/95 backdrop-blur-md shadow-lg" : "bg-transparent"
       }`}
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -57,7 +57,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA desktop */}
+        {/* Right: Newsletter + Cart (desktop) */}
         <div className="hidden md:flex items-center gap-4">
           <Link
             href="#newsletter"
@@ -65,30 +65,51 @@ export default function Navbar() {
           >
             Newsletter
           </Link>
+
+          {/* Cart icon */}
+          <button
+            onClick={openCart}
+            aria-label="Abrir carrito"
+            className="relative text-cream/80 hover:text-gold transition-colors duration-300 p-1"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            {count > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] bg-red-500 text-white font-inter text-[10px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none">
+                {count}
+              </span>
+            )}
+          </button>
         </div>
 
-        {/* Hamburger mobile */}
-        <button
-          className="md:hidden flex flex-col gap-[5px] p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Abrir menú"
-        >
-          <span
-            className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${
-              menuOpen ? "rotate-45 translate-y-[6.5px]" : ""
-            }`}
-          />
-          <span
-            className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${
-              menuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""
-            }`}
-          />
-        </button>
+        {/* Mobile: Cart + Hamburger */}
+        <div className="flex items-center gap-3 md:hidden">
+          <button
+            onClick={openCart}
+            aria-label="Abrir carrito"
+            className="relative text-cream/80 hover:text-gold transition-colors duration-300 p-1"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            {count > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] bg-red-500 text-white font-inter text-[10px] font-bold rounded-full flex items-center justify-center px-0.5 leading-none">
+                {count}
+              </span>
+            )}
+          </button>
+
+          <button
+            className="flex flex-col gap-[5px] p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Abrir menú"
+          >
+            <span className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
+            <span className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-[1.5px] bg-cream transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}

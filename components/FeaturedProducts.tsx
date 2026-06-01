@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 
 const products = [
   {
@@ -70,6 +71,8 @@ function formatPrice(price: number) {
 const EASE = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function FeaturedProducts() {
+  const { addItem } = useCart();
+
   return (
     <section id="products" className="py-16 sm:py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,6 +127,14 @@ export default function FeaturedProducts() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.2, ease: EASE }}
+                    onClick={() => addItem({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.image,
+                      fallback: product.fallback,
+                      category: product.category,
+                    })}
                     className="w-[82%] font-inter text-[10px] tracking-widest uppercase bg-gold text-navy py-2.5 hover:bg-gold-light transition-all duration-300"
                   >
                     Agregar al carrito
