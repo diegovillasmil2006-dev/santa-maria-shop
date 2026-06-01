@@ -64,6 +64,8 @@ export default function Categories() {
                   <img
                     src={cat.image}
                     alt={cat.name}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     onError={(e) => { e.currentTarget.src = cat.fallback; }}
                     style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                     className="transition-transform duration-700 group-hover:scale-105"

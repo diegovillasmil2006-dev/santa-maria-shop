@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -11,23 +11,29 @@ const containerVariants = {
   visible: { transition: { staggerChildren: 0.2, delayChildren: 0.3 } },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.4, ease: EASE } },
-};
-
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
+  const shouldReduce = useReducedMotion();
+
+  // Durations reduced to 0.4s on mobile/reduced-motion, full on desktop
+  const dur = shouldReduce ? 0.4 : 0.8;
+  const durSlow = shouldReduce ? 0.3 : 1.4;
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: shouldReduce ? 0 : 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: dur, ease: EASE } },
+  };
+
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: durSlow, ease: EASE } },
+  };
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const rawY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const rawY = useTransform(scrollYProgress, [0, 1], [0, shouldReduce ? 0 : 120]);
   const imageY = useSpring(rawY, { stiffness: 60, damping: 20 });
 
   return (
@@ -36,7 +42,7 @@ export default function Hero() {
       id="hero"
       className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden"
     >
-      {/* Background image with parallax — extended ±80px so edges never show */}
+      {/* Background image — parallax on desktop, eager load, mobile focus point */}
       <motion.div
         className="absolute inset-x-0 pointer-events-none"
         style={{ top: -80, bottom: -80, y: imageY }}
@@ -48,12 +54,15 @@ export default function Hero() {
         <img
           src="/imagenes/hero.jpg"
           alt="Santa Maria Shop — colección principal"
+          loading="eager"
+          fetchPriority="high"
           onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1800&q=80"; }}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          className="object-[center_20%] sm:object-center"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
         />
       </motion.div>
 
-      {/* Gradient overlay */}
+      {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-navy/50 via-navy/30 to-navy/70" />
       <div className="absolute inset-0 bg-gradient-to-r from-navy/30 via-transparent to-navy/30" />
 
@@ -90,34 +99,18 @@ export default function Hero() {
         </motion.p>
 
         <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          {/* Primary CTA */}
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.25, ease: EASE }}
-          >
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.25, ease: EASE }}>
             <Link
               href="#products"
               className="group inline-flex items-center gap-3 bg-gold text-navy font-inter text-sm tracking-widest uppercase px-8 py-4 hover:bg-gold-light hover:shadow-[0_8px_32px_rgba(201,169,110,0.4)] transition-all duration-500"
             >
               Ver colección
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
           </motion.div>
-
-          {/* Secondary CTA */}
-          <motion.div
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.25, ease: EASE }}
-          >
+          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.25, ease: EASE }}>
             <Link
               href="#about"
               className="font-inter text-sm tracking-widest uppercase text-cream/80 hover:text-gold border border-cream/30 hover:border-gold px-8 py-4 transition-all duration-500"
@@ -133,11 +126,9 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.8 }}
+        transition={{ delay: shouldReduce ? 0.5 : 1.8, duration: 0.8 }}
       >
-        <span className="font-inter text-[10px] tracking-[0.3em] uppercase text-cream/50">
-          Scroll
-        </span>
+        <span className="font-inter text-[10px] tracking-[0.3em] uppercase text-cream/50">Scroll</span>
         <motion.div
           className="w-[1px] h-8 bg-cream/40"
           animate={{ scaleY: [1, 0.3, 1] }}

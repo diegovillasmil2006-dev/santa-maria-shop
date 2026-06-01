@@ -16,7 +16,8 @@ export default function AboutUs() {
               alt="Santa Maria Shop — estilo de vida"
               fill
               className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             {/* Accent border */}
             <div className="absolute -bottom-4 -right-4 w-2/3 h-2/3 border border-gold/30 pointer-events-none hidden lg:block" />

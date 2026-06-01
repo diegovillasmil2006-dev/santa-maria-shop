@@ -75,6 +75,8 @@ export default function Lookbook() {
               <img
                 src={img.src}
                 alt={img.alt}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 onError={(e) => { e.currentTarget.src = img.fallback; }}
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                 className="transition-transform duration-700 group-hover:scale-105"
